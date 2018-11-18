@@ -29,7 +29,7 @@ def get_http_result(host, port, url):
         http_client.request('GET', url)
 
         response = http_client.getresponse()
-        return response.status,  response.read()
+        return response.status, response.read()
     except Exception as e:
         print(e)
         return 0,
@@ -649,12 +649,14 @@ def get_radar_mosaic(directory, filename=None, suffix="*.LATLON"):
 
             # set time coordinates
             time = datetime(1970, 1, 1) + timedelta(
-                days=head_info['dates'][0], seconds=head_info['seconds'][0])
+                days=head_info['dates'][0].astype(np.float64),
+                seconds=head_info['seconds'][0].astype(np.float64))
+            time = np.array([time], dtype='datetime64[m]')
             data = np.expand_dims(data, axis=0)
 
             # create xarray
             data = xr.DataArray(
-                data, coords=[time, lons, lats],
+                data, coords=[time, lats, lons],
                 dims=['time', 'latitude', 'longitude'],
                 name="radar_mosaic")
 
@@ -767,3 +769,7 @@ def get_tlogp(directory, filename=None, suffix="*.000"):
             return None
     else:
         return None
+
+
+# data = get_radar_mosaic("RADARMOSAIC/CREF/")
+data = get_model_grid("ECMWF_HR/TMP/850")

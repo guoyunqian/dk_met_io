@@ -220,7 +220,7 @@ def read_micaps_14(fname):
     :return: data dictionary
 
     :Examples:
-    >>> data = read_micaps_14("Z:/diamond/update/rr040120.024")
+    >>> data = read_micaps_14("Z:/diamond/update/rr082008.024")
 
     """
 
@@ -231,7 +231,7 @@ def read_micaps_14(fname):
     # read contents
     try:
         with open(fname, 'r') as f:
-            txt = f.read().decode('GBK').replace('\n', ' ').split()
+            txt = f.read().replace('\n', ' ').split()
     except IOError as err:
         print("Micaps 14 file error: " + str(err))
         return None
@@ -491,7 +491,7 @@ def read_micaps_14(fname):
 
         # find data subscript
         end_idx = idx + 1
-        while int(txt[end_idx]) != 0 and idx < len(txt):
+        while txt[end_idx].isdigit() and end_idx < len(txt):
             end_idx += 1
         if end_idx > idx + 1:
             stations = np.array(txt[(idx+1):(end_idx)])
@@ -841,3 +841,6 @@ def read_micaps_14(fname):
             "fill_area": fill_area,
             "notes_symbol": notes_symbol,
             "plines_symbol": plines_symbol}
+
+
+data = read_micaps_14("Z:/diamond/update/rr082008.024")
