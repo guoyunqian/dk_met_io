@@ -49,3 +49,4 @@ ax.contour(data['lon'], data['lat'], data.data, colors='k', levels=levels,
 plt.tight_layout()
 plt.show(block=True)
 raw_input("Press Enter to continue...")
+

@@ -495,7 +495,7 @@ def read_micaps_14(fname):
             end_idx += 1
         if end_idx > idx + 1:
             stations = np.array(txt[(idx+1):(end_idx)])
-            stations.shape = [len(stations)/2, 2]
+            stations.shape = [len(stations)//2, 2]
         else:
             stations = None
     else:
@@ -710,9 +710,9 @@ def read_micaps_14(fname):
                 idx += 1
 
                 # color
-                color = txt[idx]
+                color = np.array(txt[idx:(idx + 4)]).astype(np.int)
                 nsymbol_color.append(color)
-                idx += 1
+                idx += 4
 
             notes_symbol = {
                 "nsymbol_code": nsymbol_code,
