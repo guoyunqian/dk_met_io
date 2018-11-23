@@ -842,5 +842,3 @@ def read_micaps_14(fname):
             "notes_symbol": notes_symbol,
             "plines_symbol": plines_symbol}
 
-
-data = read_micaps_14("Z:/diamond/update/rr082008.024")

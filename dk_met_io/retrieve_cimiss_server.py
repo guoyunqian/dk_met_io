@@ -321,8 +321,10 @@ def cimiss_obs_file_by_time_range(time_range,
     :return: dictionary
 
     :Examples:
-    >>> time_range = "[20171105120000,20171105180000]"
+    >>> time_range = "[20180401000000,20180402000000]"
     >>> files = cimiss_obs_file_by_time_range(time_range)
+    >>> filenames = files['DS']
+    >>> print(files['DS'][0]['FILE_URL'])
     """
 
     # set retrieve parameters

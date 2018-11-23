@@ -6,9 +6,11 @@ Retrieve historical data from CIMISS service.
 
 import os
 import calendar
+import urllib.request
 import numpy as np
 from dk_met_io.retrieve_cimiss_server import cimiss_obs_by_time_range
 from dk_met_io.retrieve_cimiss_server import cimiss_obs_in_rect_by_time_range
+from dk_met_io.retrieve_cimiss_server import cimiss_obs_file_by_time_range
 
 
 def get_day_hist_obs(years=np.arange(2000, 2011, 1),
@@ -132,3 +134,29 @@ def get_mon_hist_obs(years=np.arange(2000, 2011, 1),
         data.to_pickle(out_files[-1])
 
     return out_files
+
+
+def get_cmpas_hist_files(time_range, outdir='.'):
+    """
+    Download CMAPS QPE gridded data files.
+    
+    Arguments:
+        time_range {string} -- time range for retrieve,
+                              "[YYYYMMDDHHMISS,YYYYMMDDHHMISS]"
+        outdir {string} -- output directory.
+
+    :Exampels:
+    >>> time_range = "[20180401000000,20181001000000]"
+    >>> get_cmpas_hist_files(time_range, outdir='G:/CMAPS')
+    """
+
+    # check output directory
+    if not os.path.exists(outdir):
+        os.makedirs(outdir)
+
+    files = cimiss_obs_file_by_time_range(
+        time_range, data_code="SURF_CMPA_NRT_NC")
+    filenames = files['DS']
+    for file in filenames:
+        outfile = os.path.join(outdir, file['FILE_NAME'])
+        urllib.request.urlretrieve(file['FILE_URL'], outfile)
