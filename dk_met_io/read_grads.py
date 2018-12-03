@@ -23,7 +23,6 @@ def read_cmp_pre_hour_grid(files, start_lon=70.05, start_lat=15.05):
     >>> files = ("F:/201607/SURF_CLI_CHN_MERGE_CMP_"
                  "PRE_HOUR_GRID_0.10-2016070100.grd")
     >>> data, time, lon, lat = read_cmp_pre_hour_grid(files)
-
     """
 
     # sort and count data files
