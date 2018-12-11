@@ -146,7 +146,7 @@ def get_cmpas_hist_files(time_range, outdir='.'):
         outdir {string} -- output directory.
 
     :Exampels:
-    >>> time_range = "[20180401000000,20181001000000]"
+    >>> time_range = "[20180101000000,20180331230000]"
     >>> get_cmpas_hist_files(time_range, outdir='G:/CMAPS')
     """
 
@@ -159,4 +159,5 @@ def get_cmpas_hist_files(time_range, outdir='.'):
     filenames = files['DS']
     for file in filenames:
         outfile = os.path.join(outdir, file['FILE_NAME'])
-        urllib.request.urlretrieve(file['FILE_URL'], outfile)
+        if not os.path.isfile(outfile):
+            urllib.request.urlretrieve(file['FILE_URL'], outfile)
