@@ -770,6 +770,3 @@ def get_tlogp(directory, filename=None, suffix="*.000"):
     else:
         return None
 
-
-# data = get_radar_mosaic("RADARMOSAIC/CREF/")
-data = get_model_grid("ECMWF_HR/TMP/850")
